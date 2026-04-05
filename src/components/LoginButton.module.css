@@ -1,0 +1,22 @@
+.button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  background: var(--color-white);
+  color: var(--color-text);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-card);
+  font-size: 1rem;
+  font-weight: 600;
+  min-height: var(--touch-target);
+  transition: background 0.2s, transform 0.1s;
+}
+
+.button:hover {
+  background: var(--color-bg);
+}
+
+.button:active {
+  transform: scale(0.98);
+}
