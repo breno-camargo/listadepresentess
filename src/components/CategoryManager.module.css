@@ -1,0 +1,107 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
+  padding: 16px;
+}
+
+.modal {
+  background: var(--color-white);
+  border-radius: 16px;
+  padding: 24px;
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.title {
+  font-size: 1.1rem;
+  color: var(--color-primary);
+}
+
+.addRow {
+  display: flex;
+  gap: 8px;
+}
+
+.input {
+  flex: 1;
+  padding: 12px;
+  border: 2px solid #E5E7EB;
+  border-radius: var(--radius-button);
+  font-size: 1rem;
+  min-height: var(--touch-target);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+}
+
+.addBtn {
+  width: var(--touch-target);
+  height: var(--touch-target);
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: none;
+  border-radius: var(--radius-button);
+  font-size: 1.4rem;
+}
+
+.addBtn:disabled {
+  opacity: 0.6;
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  background: var(--color-bg);
+  border-radius: var(--radius-button);
+  font-weight: 600;
+}
+
+.deleteBtn {
+  background: none;
+  border: none;
+  color: var(--color-text-light);
+  font-size: 1rem;
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty {
+  text-align: center;
+  color: var(--color-text-light);
+  padding: 12px;
+  font-size: 0.9rem;
+}
+
+.closeBtn {
+  padding: 14px;
+  background: none;
+  border: 2px solid #E5E7EB;
+  border-radius: var(--radius-button);
+  font-weight: 600;
+  color: var(--color-text);
+  min-height: var(--touch-target);
+}
