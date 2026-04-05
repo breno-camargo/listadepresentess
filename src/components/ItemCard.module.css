@@ -1,0 +1,106 @@
+.card {
+  background: var(--color-white);
+  border-radius: var(--radius-card);
+  padding: 16px;
+  box-shadow: 0 2px 8px var(--color-card-shadow);
+  transition: transform 0.1s, opacity 0.2s;
+}
+
+.card:active {
+  transform: scale(0.99);
+}
+
+.favorite {
+  border: 2px solid var(--color-primary);
+}
+
+.purchased {
+  opacity: var(--color-purchased-opacity);
+}
+
+.purchased .name {
+  text-decoration: line-through;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 1rem;
+  flex: 1;
+  word-break: break-word;
+}
+
+a.name {
+  color: var(--color-primary);
+}
+
+a.name:hover {
+  text-decoration: underline;
+}
+
+.favoriteBtn,
+.favoriteIcon {
+  font-size: 1.4rem;
+  color: var(--color-accent);
+  background: none;
+  border: none;
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.categoryChip {
+  display: inline-block;
+  background: var(--color-secondary);
+  color: var(--color-text);
+  padding: 4px 12px;
+  border-radius: var(--radius-chip);
+  font-size: 0.8rem;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #F3F4F6;
+}
+
+.purchasedBtn {
+  padding: 8px 16px;
+  background: var(--color-secondary);
+  color: var(--color-text);
+  border: none;
+  border-radius: var(--radius-button);
+  font-size: 0.85rem;
+  font-weight: 600;
+  min-height: var(--touch-target);
+}
+
+.deleteBtn {
+  padding: 8px 12px;
+  background: none;
+  color: var(--color-text-light);
+  border: 1px solid #E5E7EB;
+  border-radius: var(--radius-button);
+  font-size: 1rem;
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+}
