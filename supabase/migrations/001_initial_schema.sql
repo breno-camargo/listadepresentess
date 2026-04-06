@@ -92,6 +92,16 @@ begin
     coalesce(new.raw_user_meta_data->>'full_name', ''),
     coalesce(new.raw_user_meta_data->>'avatar_url', '')
   );
+
+  -- categorias padrao pra todo usuario novo
+  insert into public.categories (user_id, name) values
+    (new.id, 'Roupas'),
+    (new.id, 'Eletronicos'),
+    (new.id, 'Maquiagem'),
+    (new.id, 'Acessorios'),
+    (new.id, 'Casa'),
+    (new.id, 'Outros');
+
   return new;
 end;
 $$ language plpgsql security definer;

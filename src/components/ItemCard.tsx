@@ -36,6 +36,9 @@ export default function ItemCard({ item, editable }: ItemCardProps) {
             <span className={styles.favoriteIcon}>♥</span>
           )}
         </div>
+        {item.is_purchased && (
+          <span className={styles.purchasedBadge}>✓ Comprado</span>
+        )}
         {item.category && (
           <span className={styles.categoryChip}>{item.category.name}</span>
         )}
