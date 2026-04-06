@@ -10,6 +10,7 @@ export default function ParceiroListaPage() {
   const [items, setItems] = useState<Item[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [showFavorites, setShowFavorites] = useState(false)
 
   const supabase = createClient()
 
@@ -47,9 +48,15 @@ export default function ParceiroListaPage() {
     loadData()
   }, [])
 
-  const filtered = selectedCategory
+  const hasFavorites = items.some(i => i.is_favorite)
+
+  let filtered = selectedCategory
     ? items.filter(i => i.category_id === selectedCategory)
     : items
+
+  if (showFavorites) {
+    filtered = filtered.filter(i => i.is_favorite)
+  }
 
   const usedCategoryIds = new Set(items.map(i => i.category_id).filter(Boolean))
   const usedCategories = categories.filter(c => usedCategoryIds.has(c.id))
@@ -59,10 +66,23 @@ export default function ParceiroListaPage() {
       <CategoryFilter
         categories={usedCategories}
         selected={selectedCategory}
-        onChange={setSelectedCategory}
+        onChange={(id) => {
+          setSelectedCategory(id)
+          setShowFavorites(false)
+        }}
+        extraFilters={hasFavorites ? [
+          {
+            label: '♥ Mais desejados',
+            active: showFavorites,
+            onClick: () => {
+              setShowFavorites(!showFavorites)
+              setSelectedCategory(null)
+            },
+          }
+        ] : undefined}
       />
       <div style={{ marginTop: '12px' }}>
-        <ItemList items={filtered} editable={false} />
+        <ItemList items={filtered} editable={false} onUpdate={loadData} />
       </div>
     </>
   )

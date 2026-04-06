@@ -1,16 +1,33 @@
 'use client'
 
 import { Item } from '@/types'
-import { toggleFavorite, togglePurchased, deleteItem } from '@/lib/actions'
+import { createClient } from '@/lib/supabase-browser'
 import styles from './ItemCard.module.css'
 
 interface ItemCardProps {
   item: Item
   editable: boolean
+  onUpdate?: () => void
 }
 
-export default function ItemCard({ item, editable }: ItemCardProps) {
+export default function ItemCard({ item, editable, onUpdate }: ItemCardProps) {
+  const supabase = createClient()
   const cardClass = `${styles.card} ${item.is_favorite ? styles.favorite : ''} ${item.is_purchased ? styles.purchased : ''}`
+
+  async function handleFavorite() {
+    await supabase.from('items').update({ is_favorite: !item.is_favorite }).eq('id', item.id)
+    onUpdate?.()
+  }
+
+  async function handlePurchased() {
+    await supabase.from('items').update({ is_purchased: !item.is_purchased }).eq('id', item.id)
+    onUpdate?.()
+  }
+
+  async function handleDelete() {
+    await supabase.from('items').delete().eq('id', item.id)
+    onUpdate?.()
+  }
 
   return (
     <div className={cardClass}>
@@ -26,7 +43,7 @@ export default function ItemCard({ item, editable }: ItemCardProps) {
           {editable && (
             <button
               className={styles.favoriteBtn}
-              onClick={() => toggleFavorite(item.id, !item.is_favorite)}
+              onClick={handleFavorite}
               aria-label={item.is_favorite ? 'Remover favorito' : 'Favoritar'}
             >
               {item.is_favorite ? '♥' : '♡'}
@@ -47,13 +64,13 @@ export default function ItemCard({ item, editable }: ItemCardProps) {
         <div className={styles.actions}>
           <button
             className={styles.purchasedBtn}
-            onClick={() => togglePurchased(item.id, !item.is_purchased)}
+            onClick={handlePurchased}
           >
             {item.is_purchased ? 'Desmarcar' : 'Comprado'}
           </button>
           <button
             className={styles.deleteBtn}
-            onClick={() => deleteItem(item.id)}
+            onClick={handleDelete}
             aria-label="Remover item"
           >
             ✕

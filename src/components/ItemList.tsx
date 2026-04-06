@@ -6,9 +6,10 @@ interface ItemListProps {
   items: Item[]
   editable: boolean
   onAdd?: () => void
+  onUpdate?: () => void
 }
 
-export default function ItemList({ items, editable, onAdd }: ItemListProps) {
+export default function ItemList({ items, editable, onAdd, onUpdate }: ItemListProps) {
   const active = items.filter(i => !i.is_purchased)
   const purchased = items.filter(i => i.is_purchased)
 
@@ -28,7 +29,7 @@ export default function ItemList({ items, editable, onAdd }: ItemListProps) {
   return (
     <div className={styles.list}>
       {active.map(item => (
-        <ItemCard key={item.id} item={item} editable={editable} />
+        <ItemCard key={item.id} item={item} editable={editable} onUpdate={onUpdate} />
       ))}
       {editable && onAdd && (
         <button className={styles.addBtn} onClick={onAdd}>
@@ -39,7 +40,7 @@ export default function ItemList({ items, editable, onAdd }: ItemListProps) {
         <>
           <p className={styles.sectionTitle}>Comprados</p>
           {purchased.map(item => (
-            <ItemCard key={item.id} item={item} editable={editable} />
+            <ItemCard key={item.id} item={item} editable={editable} onUpdate={onUpdate} />
           ))}
         </>
       )}

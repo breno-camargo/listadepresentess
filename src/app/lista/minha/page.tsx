@@ -58,7 +58,7 @@ export default function MinhaListaPage() {
         onChange={setSelectedCategory}
       />
       <div style={{ marginTop: '12px' }}>
-        <ItemList items={filtered} editable={true} onAdd={() => setShowForm(true)} />
+        <ItemList items={filtered} editable={true} onAdd={() => setShowForm(true)} onUpdate={loadData} />
       </div>
       {showForm && (
         <ItemForm

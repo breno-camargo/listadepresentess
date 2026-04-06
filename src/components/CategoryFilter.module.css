@@ -29,3 +29,14 @@
   border-color: var(--color-primary);
   color: var(--color-white);
 }
+
+.special {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.activeSpecial {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-white);
+}
