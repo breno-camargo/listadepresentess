@@ -5,7 +5,6 @@ import { createClient } from '@/lib/supabase-browser'
 import { Item, Category } from '@/types'
 import ItemList from '@/components/ItemList'
 import CategoryFilter from '@/components/CategoryFilter'
-import Fab from '@/components/Fab'
 import ItemForm from '@/components/ItemForm'
 import CategoryManager from '@/components/CategoryManager'
 
@@ -59,9 +58,8 @@ export default function MinhaListaPage() {
         onChange={setSelectedCategory}
       />
       <div style={{ marginTop: '12px' }}>
-        <ItemList items={filtered} editable={true} />
+        <ItemList items={filtered} editable={true} onAdd={() => setShowForm(true)} />
       </div>
-      <Fab onClick={() => setShowForm(true)} />
       {showForm && (
         <ItemForm
           categories={categories}

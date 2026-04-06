@@ -11,6 +11,27 @@
   font-size: 1rem;
 }
 
+.addBtn {
+  width: 100%;
+  padding: 16px;
+  background: none;
+  border: 2px dashed var(--color-primary);
+  border-radius: var(--radius-card);
+  color: var(--color-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  min-height: var(--touch-target);
+  transition: background 0.2s;
+}
+
+.addBtn:hover {
+  background: rgba(244, 114, 182, 0.05);
+}
+
+.addBtn:active {
+  background: rgba(244, 114, 182, 0.1);
+}
+
 .sectionTitle {
   font-size: 0.85rem;
   font-weight: 700;
