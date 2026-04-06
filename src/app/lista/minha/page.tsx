@@ -47,10 +47,14 @@ export default function MinhaListaPage() {
     ? items.filter(i => i.category_id === selectedCategory)
     : items
 
+  // so mostra categorias que tem pelo menos 1 item
+  const usedCategoryIds = new Set(items.map(i => i.category_id).filter(Boolean))
+  const usedCategories = categories.filter(c => usedCategoryIds.has(c.id))
+
   return (
     <>
       <CategoryFilter
-        categories={categories}
+        categories={usedCategories}
         selected={selectedCategory}
         onChange={setSelectedCategory}
       />

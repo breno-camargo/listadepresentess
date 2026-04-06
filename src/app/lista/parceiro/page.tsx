@@ -51,10 +51,13 @@ export default function ParceiroListaPage() {
     ? items.filter(i => i.category_id === selectedCategory)
     : items
 
+  const usedCategoryIds = new Set(items.map(i => i.category_id).filter(Boolean))
+  const usedCategories = categories.filter(c => usedCategoryIds.has(c.id))
+
   return (
     <>
       <CategoryFilter
-        categories={categories}
+        categories={usedCategories}
         selected={selectedCategory}
         onChange={setSelectedCategory}
       />
