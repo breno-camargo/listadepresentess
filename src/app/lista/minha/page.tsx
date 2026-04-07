@@ -7,6 +7,7 @@ import ItemList from '@/components/ItemList'
 import CategoryFilter from '@/components/CategoryFilter'
 import ItemForm from '@/components/ItemForm'
 import CategoryManager from '@/components/CategoryManager'
+import Spinner from '@/components/Spinner'
 
 export default function MinhaListaPage() {
   const [items, setItems] = useState<Item[]>([])
@@ -14,6 +15,7 @@ export default function MinhaListaPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [showForm, setShowForm] = useState(false)
   const [showCategories, setShowCategories] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const supabase = createClient()
 
@@ -36,6 +38,7 @@ export default function MinhaListaPage() {
 
     if (itemsRes.data) setItems(itemsRes.data)
     if (catsRes.data) setCategories(catsRes.data)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -46,9 +49,10 @@ export default function MinhaListaPage() {
     ? items.filter(i => i.category_id === selectedCategory)
     : items
 
-  // so mostra categorias que tem pelo menos 1 item
   const usedCategoryIds = new Set(items.map(i => i.category_id).filter(Boolean))
   const usedCategories = categories.filter(c => usedCategoryIds.has(c.id))
+
+  if (loading) return <Spinner />
 
   return (
     <>

@@ -5,12 +5,14 @@ import { createClient } from '@/lib/supabase-browser'
 import { Item, Category } from '@/types'
 import ItemList from '@/components/ItemList'
 import CategoryFilter from '@/components/CategoryFilter'
+import Spinner from '@/components/Spinner'
 
 export default function ParceiroListaPage() {
   const [items, setItems] = useState<Item[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [showFavorites, setShowFavorites] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const supabase = createClient()
 
@@ -25,7 +27,10 @@ export default function ParceiroListaPage() {
       .limit(1)
 
     const partnerId = profiles?.[0]?.id
-    if (!partnerId) return
+    if (!partnerId) {
+      setLoading(false)
+      return
+    }
 
     const [itemsRes, catsRes] = await Promise.all([
       supabase
@@ -42,6 +47,7 @@ export default function ParceiroListaPage() {
 
     if (itemsRes.data) setItems(itemsRes.data)
     if (catsRes.data) setCategories(catsRes.data)
+    setLoading(false)
   }
 
   useEffect(() => {
@@ -60,6 +66,8 @@ export default function ParceiroListaPage() {
 
   const usedCategoryIds = new Set(items.map(i => i.category_id).filter(Boolean))
   const usedCategories = categories.filter(c => usedCategoryIds.has(c.id))
+
+  if (loading) return <Spinner />
 
   return (
     <>
