@@ -2,7 +2,8 @@
 
 import { useState } from 'react'
 import { Category } from '@/types'
-import { addItem } from '@/lib/actions'
+import { createClient } from '@/lib/supabase-browser'
+import Toast from './Toast'
 import styles from './ItemForm.module.css'
 
 interface ItemFormProps {
@@ -13,13 +14,41 @@ interface ItemFormProps {
 
 export default function ItemForm({ categories, onClose, onManageCategories }: ItemFormProps) {
   const [pending, setPending] = useState(false)
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
+  const supabase = createClient()
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setPending(true)
+
     const formData = new FormData(e.currentTarget)
-    await addItem(formData)
+    const name = (formData.get('name') as string)?.trim()
+    const url = (formData.get('url') as string)?.trim() || null
+    const categoryId = (formData.get('categoryId') as string) || null
+
+    if (!name) {
+      setToast({ message: 'Nome e obrigatorio', type: 'error' })
+      setPending(false)
+      return
+    }
+
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return
+
+    const { error } = await supabase.from('items').insert({
+      user_id: user.id,
+      name,
+      url,
+      category_id: categoryId || null,
+      is_favorite: false,
+      is_purchased: false,
+    })
+
     setPending(false)
+    if (error) {
+      setToast({ message: 'Erro ao adicionar', type: 'error' })
+      return
+    }
     onClose()
   }
 
@@ -78,6 +107,7 @@ export default function ItemForm({ categories, onClose, onManageCategories }: It
           </button>
         </div>
       </form>
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
     </div>
   )
 }

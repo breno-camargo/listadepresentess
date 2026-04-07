@@ -1,7 +1,9 @@
 'use client'
 
+import { useState } from 'react'
 import { Item } from '@/types'
 import { createClient } from '@/lib/supabase-browser'
+import Toast from './Toast'
 import styles from './ItemCard.module.css'
 
 interface ItemCardProps {
@@ -11,21 +13,35 @@ interface ItemCardProps {
 }
 
 export default function ItemCard({ item, editable, onUpdate }: ItemCardProps) {
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
   const supabase = createClient()
   const cardClass = `${styles.card} ${item.is_favorite ? styles.favorite : ''} ${item.is_purchased ? styles.purchased : ''}`
 
   async function handleFavorite() {
-    await supabase.from('items').update({ is_favorite: !item.is_favorite }).eq('id', item.id)
+    const { error } = await supabase.from('items').update({ is_favorite: !item.is_favorite }).eq('id', item.id)
+    if (error) {
+      setToast({ message: 'Erro ao favoritar', type: 'error' })
+      return
+    }
     onUpdate?.()
   }
 
   async function handlePurchased() {
-    await supabase.from('items').update({ is_purchased: !item.is_purchased }).eq('id', item.id)
+    const { error } = await supabase.from('items').update({ is_purchased: !item.is_purchased }).eq('id', item.id)
+    if (error) {
+      setToast({ message: 'Erro ao atualizar', type: 'error' })
+      return
+    }
+    setToast({ message: item.is_purchased ? 'Desmarcado' : 'Marcado como comprado!', type: 'success' })
     onUpdate?.()
   }
 
   async function handleDelete() {
-    await supabase.from('items').delete().eq('id', item.id)
+    const { error } = await supabase.from('items').delete().eq('id', item.id)
+    if (error) {
+      setToast({ message: 'Erro ao remover', type: 'error' })
+      return
+    }
     onUpdate?.()
   }
 
@@ -77,6 +93,7 @@ export default function ItemCard({ item, editable, onUpdate }: ItemCardProps) {
           </button>
         </div>
       )}
+      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
     </div>
   )
 }
