@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Category } from '@/types'
 import { addCategory, deleteCategory } from '@/lib/actions'
 import styles from './CategoryManager.module.css'
@@ -13,6 +13,14 @@ interface CategoryManagerProps {
 export default function CategoryManager({ categories, onClose }: CategoryManagerProps) {
   const [name, setName] = useState('')
   const [pending, setPending] = useState(false)
+
+  useEffect(() => {
+    function handleEsc(e: KeyboardEvent) {
+      if (e.key === 'Escape') onClose()
+    }
+    window.addEventListener('keydown', handleEsc)
+    return () => window.removeEventListener('keydown', handleEsc)
+  }, [onClose])
 
   async function handleAdd() {
     if (!name.trim()) return
