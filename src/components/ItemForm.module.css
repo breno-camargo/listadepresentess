@@ -1,7 +1,7 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--color-overlay);
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -46,11 +46,13 @@
 .input,
 .select {
   padding: 12px;
-  border: 2px solid #E5E7EB;
+  border: 2px solid var(--color-border-light);
   border-radius: var(--radius-button);
   font-size: 1rem;
   min-height: var(--touch-target);
   transition: border-color 0.2s;
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
 .input:focus,
@@ -89,7 +91,7 @@
   flex: 1;
   padding: 14px;
   background: none;
-  border: 2px solid #E5E7EB;
+  border: 2px solid var(--color-border-light);
   border-radius: var(--radius-button);
   font-weight: 600;
   min-height: var(--touch-target);
@@ -100,7 +102,7 @@
   flex: 1;
   padding: 14px;
   background: var(--color-primary);
-  color: var(--color-white);
+  color: #FFFFFF;
   border: none;
   border-radius: var(--radius-button);
   font-weight: 600;

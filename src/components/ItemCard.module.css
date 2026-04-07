@@ -16,7 +16,7 @@
 
 .purchased {
   opacity: 0.55;
-  background: #F0F0F0;
+  background: var(--color-purchased-bg);
   border-left: 4px solid #10B981;
   position: relative;
 }
@@ -97,7 +97,7 @@ a.name:hover {
   gap: 8px;
   margin-top: 12px;
   padding-top: 12px;
-  border-top: 1px solid #F3F4F6;
+  border-top: 1px solid var(--color-border-section);
 }
 
 .purchasedBtn {
@@ -115,7 +115,7 @@ a.name:hover {
   padding: 8px 12px;
   background: none;
   color: var(--color-text-light);
-  border: 1px solid #E5E7EB;
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-button);
   font-size: 1rem;
   min-width: var(--touch-target);

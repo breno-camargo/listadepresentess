@@ -9,12 +9,30 @@
   --color-accent: #EC4899;
   --color-white: #FFFFFF;
   --color-card-shadow: rgba(244, 114, 182, 0.1);
-  --color-purchased-opacity: 0.5;
+  --color-purchased-bg: #F0F0F0;
+  --color-border-light: #E5E7EB;
+  --color-border-section: #F3F4F6;
+  --color-overlay: rgba(0, 0, 0, 0.3);
   --radius-card: 12px;
   --radius-chip: 20px;
   --radius-button: 8px;
   --touch-target: 44px;
   --max-width: 480px;
+}
+
+[data-theme="dark"] {
+  --color-bg: #1A1017;
+  --color-primary: #F9A8D4;
+  --color-secondary: #3B2446;
+  --color-text: #F3E8F0;
+  --color-text-light: #A78BA0;
+  --color-accent: #FB7BB8;
+  --color-white: #2A1F2D;
+  --color-card-shadow: rgba(249, 168, 212, 0.08);
+  --color-purchased-bg: #221A25;
+  --color-border-light: #3D2E40;
+  --color-border-section: #2E2231;
+  --color-overlay: rgba(0, 0, 0, 0.6);
 }
 
 * {

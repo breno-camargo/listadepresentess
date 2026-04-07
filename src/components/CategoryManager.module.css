@@ -1,7 +1,7 @@
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--color-overlay);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,10 +33,12 @@
 .input {
   flex: 1;
   padding: 12px;
-  border: 2px solid #E5E7EB;
+  border: 2px solid var(--color-border-light);
   border-radius: var(--radius-button);
   font-size: 1rem;
   min-height: var(--touch-target);
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
 .input:focus {
@@ -99,7 +101,7 @@
 .closeBtn {
   padding: 14px;
   background: none;
-  border: 2px solid #E5E7EB;
+  border: 2px solid var(--color-border-light);
   border-radius: var(--radius-button);
   font-weight: 600;
   color: var(--color-text);
