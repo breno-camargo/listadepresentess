@@ -14,6 +14,7 @@ interface ItemCardProps {
 
 export default function ItemCard({ item, editable, onUpdate }: ItemCardProps) {
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
+  const [confirmDelete, setConfirmDelete] = useState(false)
   const supabase = createClient()
   const cardClass = `${styles.card} ${item.is_favorite ? styles.favorite : ''} ${item.is_purchased ? styles.purchased : ''}`
 
@@ -84,13 +85,22 @@ export default function ItemCard({ item, editable, onUpdate }: ItemCardProps) {
           >
             {item.is_purchased ? 'Desmarcar' : 'Comprado'}
           </button>
-          <button
-            className={styles.deleteBtn}
-            onClick={handleDelete}
-            aria-label="Remover item"
-          >
-            ✕
-          </button>
+          {confirmDelete ? (
+            <button
+              className={styles.confirmDeleteBtn}
+              onClick={handleDelete}
+            >
+              Confirmar?
+            </button>
+          ) : (
+            <button
+              className={styles.deleteBtn}
+              onClick={() => setConfirmDelete(true)}
+              aria-label="Remover item"
+            >
+              ✕
+            </button>
+          )}
         </div>
       )}
       {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}

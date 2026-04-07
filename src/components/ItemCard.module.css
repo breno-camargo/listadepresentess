@@ -121,3 +121,21 @@ a.name:hover {
   min-width: var(--touch-target);
   min-height: var(--touch-target);
 }
+
+.confirmDeleteBtn {
+  padding: 8px 16px;
+  background: #EF4444;
+  color: white;
+  border: none;
+  border-radius: var(--radius-button);
+  font-size: 0.85rem;
+  font-weight: 600;
+  min-height: var(--touch-target);
+  animation: pulse 0.3s ease-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
