@@ -1,4 +1,5 @@
 import LoginButton from '@/components/LoginButton'
+import styles from './page.module.css'
 
 export default function LoginPage({
   searchParams,
@@ -6,39 +7,18 @@ export default function LoginPage({
   searchParams: { error?: string }
 }) {
   return (
-    <main style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      minHeight: '100dvh',
-      padding: '20px',
-      textAlign: 'center',
-    }}>
-      <h1 style={{
-        fontSize: '2rem',
-        color: 'var(--color-primary)',
-        marginBottom: '8px',
-      }}>
-        Lista de Presentes
-      </h1>
-      <p style={{
-        color: 'var(--color-text-light)',
-        marginBottom: '32px',
-        fontSize: '1.1rem',
-      }}>
-        Wishlist de casal
-      </p>
-      {searchParams.error === 'nao-autorizado' && (
-        <p style={{
-          color: '#EF4444',
-          marginBottom: '16px',
-          fontSize: '0.9rem',
-        }}>
-          Esse email nao tem acesso. Use o email autorizado.
-        </p>
-      )}
-      <LoginButton />
+    <main className={styles.container}>
+      <div className={styles.card}>
+        <span className={styles.emoji}>🎁</span>
+        <h1 className={styles.title}>Lista de Presentes</h1>
+        <p className={styles.subtitle}>Wishlist de casal</p>
+        {searchParams.error === 'nao-autorizado' && (
+          <p className={styles.error}>
+            Esse email nao tem acesso. Use o email autorizado.
+          </p>
+        )}
+        <LoginButton />
+      </div>
     </main>
   )
 }

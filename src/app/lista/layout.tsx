@@ -2,6 +2,7 @@ import { requireAuth, getPartnerEmail } from '@/lib/auth'
 import { createClient } from '@/lib/supabase-server'
 import TabNav from '@/components/TabNav'
 import ThemeToggle from '@/components/ThemeToggle'
+import styles from './layout.module.css'
 
 export default async function ListaLayout({
   children,
@@ -25,29 +26,16 @@ export default async function ListaLayout({
   }
 
   return (
-    <main style={{
-      maxWidth: 'var(--max-width)',
-      margin: '0 auto',
-      padding: '16px',
-      paddingBottom: '96px',
-    }}>
-      <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: '12px',
-      }}>
-        <h1 style={{
-          fontSize: '1.3rem',
-          color: 'var(--color-primary)',
-          fontWeight: 700,
-        }}>
-          Lista de Presentes
-        </h1>
+    <main className={styles.main}>
+      <header className={styles.header}>
+        <div>
+          <h1 className={styles.title}>Lista de Presentes</h1>
+          <p className={styles.subtitle}>🎁</p>
+        </div>
         <ThemeToggle />
-      </div>
+      </header>
       <TabNav partnerName={partnerName} />
-      <div style={{ marginTop: '16px' }}>
+      <div className={styles.content}>
         {children}
       </div>
     </main>

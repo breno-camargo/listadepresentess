@@ -13,21 +13,27 @@
 
 .chip {
   flex-shrink: 0;
-  padding: 8px 16px;
+  padding: 8px 18px;
   border-radius: var(--radius-chip);
-  border: 2px solid var(--color-secondary);
+  border: 2px solid var(--color-border-light);
   background: var(--color-white);
-  color: var(--color-text);
-  font-size: 0.85rem;
-  font-weight: 600;
+  color: var(--color-text-light);
+  font-size: 0.82rem;
+  font-weight: 700;
   min-height: var(--touch-target);
-  transition: all 0.2s;
+  transition: all var(--transition-smooth);
+  letter-spacing: 0.01em;
+}
+
+.chip:active {
+  transform: scale(0.96);
 }
 
 .active {
-  background: var(--color-primary);
-  border-color: var(--color-primary);
-  color: var(--color-white);
+  background: var(--gradient-primary);
+  border-color: transparent;
+  color: white;
+  box-shadow: 0 2px 8px rgba(232, 89, 154, 0.25);
 }
 
 .special {
@@ -38,5 +44,6 @@
 .activeSpecial {
   background: var(--color-accent);
   border-color: var(--color-accent);
-  color: var(--color-white);
+  color: white;
+  box-shadow: 0 2px 8px rgba(217, 70, 168, 0.3);
 }

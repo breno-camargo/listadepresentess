@@ -7,17 +7,19 @@
   justify-content: center;
   z-index: 20;
   padding: 16px;
+  animation: fadeIn 0.2s ease-out;
 }
 
 .form {
   background: var(--color-white);
-  border-radius: 16px 16px 0 0;
-  padding: 24px;
+  border-radius: 20px 20px 0 0;
+  padding: 28px 24px;
   width: 100%;
   max-width: var(--max-width);
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
+  animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (min-width: 640px) {
@@ -25,12 +27,13 @@
     align-items: center;
   }
   .form {
-    border-radius: 16px;
+    border-radius: 20px;
   }
 }
 
 .title {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 800;
   color: var(--color-primary);
 }
 
@@ -38,19 +41,19 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 700;
   color: var(--color-text-light);
 }
 
 .input,
 .select {
-  padding: 12px;
+  padding: 14px;
   border: 2px solid var(--color-border-light);
   border-radius: var(--radius-button);
   font-size: 1rem;
   min-height: var(--touch-target);
-  transition: border-color 0.2s;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
   background: var(--color-bg);
   color: var(--color-text);
 }
@@ -59,6 +62,7 @@
 .select:focus {
   outline: none;
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
 }
 
 .categoryRow {
@@ -75,16 +79,21 @@
   background: var(--color-secondary);
   border: none;
   border-radius: var(--radius-button);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.85rem;
   color: var(--color-text);
   min-height: var(--touch-target);
+  transition: transform var(--transition-fast);
+}
+
+.manageBtn:active {
+  transform: scale(0.96);
 }
 
 .actions {
   display: flex;
   gap: 12px;
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 .cancelBtn {
@@ -93,22 +102,44 @@
   background: none;
   border: 2px solid var(--color-border-light);
   border-radius: var(--radius-button);
-  font-weight: 600;
+  font-weight: 700;
   min-height: var(--touch-target);
   color: var(--color-text-light);
+  transition: all var(--transition-fast);
+}
+
+.cancelBtn:active {
+  transform: scale(0.97);
 }
 
 .submitBtn {
   flex: 1;
   padding: 14px;
-  background: var(--color-primary);
-  color: #FFFFFF;
+  background: var(--gradient-primary);
+  color: white;
   border: none;
   border-radius: var(--radius-button);
-  font-weight: 600;
+  font-weight: 700;
   min-height: var(--touch-target);
+  box-shadow: 0 2px 8px rgba(232, 89, 154, 0.3);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.submitBtn:active {
+  transform: scale(0.97);
 }
 
 .submitBtn:disabled {
   opacity: 0.6;
+  box-shadow: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }

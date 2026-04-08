@@ -7,21 +7,24 @@
   justify-content: center;
   z-index: 30;
   padding: 16px;
+  animation: fadeIn 0.2s ease-out;
 }
 
 .modal {
   background: var(--color-white);
-  border-radius: 16px;
-  padding: 24px;
+  border-radius: 20px;
+  padding: 28px 24px;
   width: 100%;
   max-width: 360px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  animation: scaleIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .title {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  font-weight: 800;
   color: var(--color-primary);
 }
 
@@ -32,32 +35,41 @@
 
 .input {
   flex: 1;
-  padding: 12px;
+  padding: 14px;
   border: 2px solid var(--color-border-light);
   border-radius: var(--radius-button);
   font-size: 1rem;
   min-height: var(--touch-target);
   background: var(--color-bg);
   color: var(--color-text);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .input:focus {
   outline: none;
   border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-primary-soft);
 }
 
 .addBtn {
   width: var(--touch-target);
   height: var(--touch-target);
-  background: var(--color-primary);
-  color: var(--color-white);
+  background: var(--gradient-primary);
+  color: white;
   border: none;
   border-radius: var(--radius-button);
   font-size: 1.4rem;
+  transition: transform var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(232, 89, 154, 0.3);
+}
+
+.addBtn:active {
+  transform: scale(0.92);
 }
 
 .addBtn:disabled {
   opacity: 0.6;
+  box-shadow: none;
 }
 
 .list {
@@ -65,7 +77,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  max-height: 200px;
+  max-height: 240px;
   overflow-y: auto;
 }
 
@@ -73,10 +85,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 12px;
-  background: var(--color-bg);
+  padding: 10px 14px;
+  background: var(--color-bg-subtle);
   border-radius: var(--radius-button);
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: 1px solid var(--color-border-light);
 }
 
 .deleteBtn {
@@ -89,12 +103,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: color var(--transition-fast);
+}
+
+.deleteBtn:hover {
+  color: var(--color-danger);
 }
 
 .empty {
   text-align: center;
   color: var(--color-text-light);
-  padding: 12px;
+  padding: 16px;
   font-size: 0.9rem;
 }
 
@@ -103,7 +122,22 @@
   background: none;
   border: 2px solid var(--color-border-light);
   border-radius: var(--radius-button);
-  font-weight: 600;
+  font-weight: 700;
   color: var(--color-text);
   min-height: var(--touch-target);
+  transition: all var(--transition-fast);
+}
+
+.closeBtn:active {
+  transform: scale(0.97);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }

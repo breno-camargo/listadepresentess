@@ -1,38 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 
 :root {
   --color-bg: #FFF5F7;
-  --color-primary: #F472B6;
-  --color-secondary: #E9D5FF;
-  --color-text: #374151;
-  --color-text-light: #9CA3AF;
-  --color-accent: #EC4899;
+  --color-bg-subtle: #FFF0F3;
+  --color-primary: #E8599A;
+  --color-primary-soft: rgba(232, 89, 154, 0.08);
+  --color-secondary: #F0E4FF;
+  --color-text: #2D2235;
+  --color-text-light: #8E8599;
+  --color-accent: #D946A8;
   --color-white: #FFFFFF;
-  --color-card-shadow: rgba(244, 114, 182, 0.1);
-  --color-purchased-bg: #F0F0F0;
-  --color-border-light: #E5E7EB;
-  --color-border-section: #F3F4F6;
-  --color-overlay: rgba(0, 0, 0, 0.3);
-  --radius-card: 12px;
-  --radius-chip: 20px;
-  --radius-button: 8px;
+  --color-card-shadow: 0 2px 12px rgba(180, 60, 120, 0.08);
+  --color-card-shadow-hover: 0 6px 20px rgba(180, 60, 120, 0.12);
+  --color-purchased-bg: #F5F3F7;
+  --color-success: #10B981;
+  --color-danger: #EF4444;
+  --color-border-light: #EDE4EE;
+  --color-border-section: #F5EFF6;
+  --color-overlay: rgba(45, 34, 53, 0.4);
+  --gradient-primary: linear-gradient(135deg, #E8599A 0%, #D946A8 100%);
+  --gradient-card: linear-gradient(180deg, #FFFFFF 0%, #FFFAFC 100%);
+  --radius-card: 16px;
+  --radius-chip: 24px;
+  --radius-button: 12px;
   --touch-target: 44px;
   --max-width: 480px;
+  --transition-fast: 0.15s ease;
+  --transition-smooth: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 [data-theme="dark"] {
-  --color-bg: #1A1017;
+  --color-bg: #151018;
+  --color-bg-subtle: #1C1520;
   --color-primary: #F9A8D4;
-  --color-secondary: #3B2446;
-  --color-text: #F3E8F0;
-  --color-text-light: #A78BA0;
+  --color-primary-soft: rgba(249, 168, 212, 0.1);
+  --color-secondary: #2E1F3A;
+  --color-text: #F0E6F0;
+  --color-text-light: #9B8DA3;
   --color-accent: #FB7BB8;
-  --color-white: #2A1F2D;
-  --color-card-shadow: rgba(249, 168, 212, 0.08);
-  --color-purchased-bg: #221A25;
-  --color-border-light: #3D2E40;
-  --color-border-section: #2E2231;
-  --color-overlay: rgba(0, 0, 0, 0.6);
+  --color-white: #1E1724;
+  --color-card-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  --color-card-shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.4);
+  --color-purchased-bg: #1A1420;
+  --color-success: #34D399;
+  --color-danger: #F87171;
+  --color-border-light: #2E2436;
+  --color-border-section: #251D2E;
+  --color-overlay: rgba(0, 0, 0, 0.65);
+  --gradient-primary: linear-gradient(135deg, #F9A8D4 0%, #FB7BB8 100%);
+  --gradient-card: linear-gradient(180deg, #1E1724 0%, #1A1420 100%);
 }
 
 * {
@@ -50,23 +66,33 @@ body {
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
   padding-bottom: env(safe-area-inset-bottom);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 a {
   color: var(--color-primary);
   text-decoration: none;
+  transition: opacity var(--transition-fast);
 }
 
 a:hover {
-  text-decoration: underline;
+  opacity: 0.8;
 }
 
 button {
   font-family: inherit;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 input, select, textarea {
   font-family: inherit;
   font-size: 1rem;
+  -webkit-tap-highlight-color: transparent;
+}
+
+::selection {
+  background: var(--color-primary);
+  color: white;
 }
