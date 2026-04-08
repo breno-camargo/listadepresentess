@@ -13,12 +13,16 @@ export default function ParceiroListaPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [showFavorites, setShowFavorites] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [noPartner, setNoPartner] = useState(false)
 
   const supabase = createClient()
 
   async function loadData() {
     const { data: { user } } = await supabase.auth.getUser()
-    if (!user) return
+    if (!user) {
+      setLoading(false)
+      return
+    }
 
     const { data: profiles } = await supabase
       .from('profiles')
@@ -28,6 +32,7 @@ export default function ParceiroListaPage() {
 
     const partnerId = profiles?.[0]?.id
     if (!partnerId) {
+      setNoPartner(true)
       setLoading(false)
       return
     }
@@ -68,6 +73,16 @@ export default function ParceiroListaPage() {
   const usedCategories = categories.filter(c => usedCategoryIds.has(c.id))
 
   if (loading) return <Spinner />
+
+  if (noPartner) {
+    return (
+      <div style={{ textAlign: 'center', padding: '64px 20px', color: 'var(--color-text-light)' }}>
+        <p style={{ fontSize: '2.5rem', marginBottom: '12px' }}>💌</p>
+        <p style={{ fontWeight: 700 }}>Seu parceiro(a) ainda nao entrou no app.</p>
+        <p style={{ fontSize: '0.9rem', marginTop: '8px' }}>Quando ele(a) logar, a lista vai aparecer aqui!</p>
+      </div>
+    )
+  }
 
   return (
     <>
