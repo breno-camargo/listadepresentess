@@ -28,10 +28,7 @@ export default async function ListaLayout({
   return (
     <main className={styles.main}>
       <header className={styles.header}>
-        <div>
-          <h1 className={styles.title}>Lista de Presentes</h1>
-          <p className={styles.subtitle}>🎁</p>
-        </div>
+        <h1 className={styles.title}>🎁 Lista de Presentes</h1>
         <ThemeToggle />
       </header>
       <TabNav partnerName={partnerName} />
