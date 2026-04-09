@@ -1,14 +1,10 @@
 import { requireAuth, getPartnerEmail } from '@/lib/auth'
 import { createClient } from '@/lib/supabase-server'
-import TabNav from '@/components/TabNav'
 import ThemeToggle from '@/components/ThemeToggle'
+import ListaTabs from '@/components/ListaTabs'
 import styles from './layout.module.css'
 
-export default async function ListaLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default async function ListaLayout() {
   const user = await requireAuth()
   const supabase = await createClient()
   const partnerEmail = await getPartnerEmail(user.email!)
@@ -31,10 +27,7 @@ export default async function ListaLayout({
         <h1 className={styles.title}>🎁 Lista de Presentes</h1>
         <ThemeToggle />
       </header>
-      <TabNav partnerName={partnerName} />
-      <div className={styles.content}>
-        {children}
-      </div>
+      <ListaTabs partnerName={partnerName} />
     </main>
   )
 }

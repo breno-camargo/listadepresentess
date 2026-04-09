@@ -1,30 +1,28 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
-import Link from 'next/link'
 import styles from './TabNav.module.css'
 
 interface TabNavProps {
   partnerName: string
+  activeTab: 'minha' | 'parceiro'
+  onTabChange: (tab: 'minha' | 'parceiro') => void
 }
 
-export default function TabNav({ partnerName }: TabNavProps) {
-  const pathname = usePathname()
-
+export default function TabNav({ partnerName, activeTab, onTabChange }: TabNavProps) {
   return (
     <nav className={styles.nav}>
-      <Link
-        href="/lista/minha"
-        className={`${styles.tab} ${pathname === '/lista/minha' ? styles.active : ''}`}
+      <button
+        className={`${styles.tab} ${activeTab === 'minha' ? styles.active : ''}`}
+        onClick={() => onTabChange('minha')}
       >
         Minha Lista
-      </Link>
-      <Link
-        href="/lista/parceiro"
-        className={`${styles.tab} ${pathname === '/lista/parceiro' ? styles.active : ''}`}
+      </button>
+      <button
+        className={`${styles.tab} ${activeTab === 'parceiro' ? styles.active : ''}`}
+        onClick={() => onTabChange('parceiro')}
       >
         Lista de {partnerName}
-      </Link>
+      </button>
     </nav>
   )
 }

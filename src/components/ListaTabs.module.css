@@ -1,0 +1,69 @@
+.tabContent {
+  margin-top: 16px;
+  min-height: 200px;
+}
+
+.slideIn {
+  animation: fadeSlideIn 0.2s ease-out;
+}
+
+.slideOutLeft {
+  animation: fadeSlideOutLeft 0.15s ease-in forwards;
+}
+
+.slideOutRight {
+  animation: fadeSlideOutRight 0.15s ease-in forwards;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+}
+
+@keyframes fadeSlideOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+}
+
+.noPartner {
+  text-align: center;
+  padding: 64px 20px;
+  color: var(--color-text-light);
+}
+
+.noPartnerEmoji {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+.noPartnerText {
+  font-weight: 700;
+}
+
+.noPartnerSub {
+  font-size: 0.9rem;
+  margin-top: 8px;
+}
