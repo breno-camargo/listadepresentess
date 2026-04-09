@@ -79,6 +79,22 @@
   gap: 8px;
   max-height: 240px;
   overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary) transparent;
+}
+
+.list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 10px;
 }
 
 .item {
@@ -117,7 +133,30 @@
   font-size: 0.9rem;
 }
 
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.backBtn {
+  flex: 1;
+  padding: 14px;
+  background: var(--gradient-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-button);
+  font-weight: 700;
+  min-height: var(--touch-target);
+  transition: transform var(--transition-fast);
+  box-shadow: 0 2px 8px rgba(232, 89, 154, 0.3);
+}
+
+.backBtn:active {
+  transform: scale(0.97);
+}
+
 .closeBtn {
+  flex: 1;
   padding: 14px;
   background: none;
   border: 2px solid var(--color-border-light);

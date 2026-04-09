@@ -78,6 +78,10 @@ export default function MinhaListaPage() {
         <CategoryManager
           categories={categories}
           onClose={() => setShowCategories(false)}
+          onBack={() => {
+            setShowCategories(false)
+            setShowForm(true)
+          }}
         />
       )}
     </>

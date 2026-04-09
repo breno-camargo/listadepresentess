@@ -8,9 +8,10 @@ import styles from './CategoryManager.module.css'
 interface CategoryManagerProps {
   categories: Category[]
   onClose: () => void
+  onBack?: () => void
 }
 
-export default function CategoryManager({ categories, onClose }: CategoryManagerProps) {
+export default function CategoryManager({ categories, onClose, onBack }: CategoryManagerProps) {
   const [name, setName] = useState('')
   const [pending, setPending] = useState(false)
 
@@ -71,9 +72,16 @@ export default function CategoryManager({ categories, onClose }: CategoryManager
           )}
         </ul>
 
-        <button onClick={onClose} className={styles.closeBtn}>
-          Fechar
-        </button>
+        <div className={styles.actions}>
+          {onBack && (
+            <button onClick={onBack} className={styles.backBtn}>
+              ← Voltar
+            </button>
+          )}
+          <button onClick={onClose} className={styles.closeBtn}>
+            Fechar
+          </button>
+        </div>
       </div>
     </div>
   )
