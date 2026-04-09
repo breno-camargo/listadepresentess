@@ -1,20 +1,23 @@
 'use client'
 
 import { useState } from 'react'
-import { Item } from '@/types'
+import { Item, Category } from '@/types'
 import { createClient } from '@/lib/supabase-browser'
+import EditItemForm from './EditItemForm'
 import Toast from './Toast'
 import styles from './ItemCard.module.css'
 
 interface ItemCardProps {
   item: Item
   editable: boolean
+  categories?: Category[]
   onUpdate?: () => void
 }
 
-export default function ItemCard({ item, editable, onUpdate }: ItemCardProps) {
+export default function ItemCard({ item, editable, categories, onUpdate }: ItemCardProps) {
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
   const [confirmDelete, setConfirmDelete] = useState(false)
+  const [editing, setEditing] = useState(false)
   const supabase = createClient()
   const cardClass = `${styles.card} ${item.is_favorite ? styles.favorite : ''} ${item.is_purchased ? styles.purchased : ''}`
 
@@ -47,63 +50,79 @@ export default function ItemCard({ item, editable, onUpdate }: ItemCardProps) {
   }
 
   return (
-    <div className={cardClass}>
-      <div className={styles.content}>
-        <div className={styles.header}>
-          {item.url ? (
-            <a href={item.url} target="_blank" rel="noopener noreferrer" className={styles.name}>
-              {item.name}
-            </a>
-          ) : (
-            <span className={styles.name}>{item.name}</span>
+    <>
+      <div className={cardClass}>
+        <div className={styles.content}>
+          <div className={styles.header}>
+            {item.url ? (
+              <a href={item.url} target="_blank" rel="noopener noreferrer" className={styles.name}>
+                {item.name}
+              </a>
+            ) : (
+              <span className={styles.name}>{item.name}</span>
+            )}
+            {editable && (
+              <button
+                className={styles.favoriteBtn}
+                onClick={handleFavorite}
+                aria-label={item.is_favorite ? 'Remover favorito' : 'Favoritar'}
+              >
+                {item.is_favorite ? '♥' : '♡'}
+              </button>
+            )}
+            {!editable && item.is_favorite && (
+              <span className={styles.favoriteIcon}>♥</span>
+            )}
+          </div>
+          {item.is_purchased && (
+            <span className={styles.purchasedBadge}>✓ Comprado</span>
           )}
-          {editable && (
-            <button
-              className={styles.favoriteBtn}
-              onClick={handleFavorite}
-              aria-label={item.is_favorite ? 'Remover favorito' : 'Favoritar'}
-            >
-              {item.is_favorite ? '♥' : '♡'}
-            </button>
-          )}
-          {!editable && item.is_favorite && (
-            <span className={styles.favoriteIcon}>♥</span>
+          {item.category && (
+            <span className={styles.categoryChip}>{item.category.name}</span>
           )}
         </div>
-        {item.is_purchased && (
-          <span className={styles.purchasedBadge}>✓ Comprado</span>
+        {editable && (
+          <div className={styles.actions}>
+            <button
+              className={styles.editBtn}
+              onClick={() => setEditing(true)}
+            >
+              Editar
+            </button>
+            <button
+              className={styles.purchasedBtn}
+              onClick={handlePurchased}
+            >
+              {item.is_purchased ? 'Desmarcar' : 'Comprado'}
+            </button>
+            {confirmDelete ? (
+              <button
+                className={styles.confirmDeleteBtn}
+                onClick={handleDelete}
+              >
+                Confirmar?
+              </button>
+            ) : (
+              <button
+                className={styles.deleteBtn}
+                onClick={() => setConfirmDelete(true)}
+                aria-label="Remover item"
+              >
+                ✕
+              </button>
+            )}
+          </div>
         )}
-        {item.category && (
-          <span className={styles.categoryChip}>{item.category.name}</span>
-        )}
+        {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
       </div>
-      {editable && (
-        <div className={styles.actions}>
-          <button
-            className={styles.purchasedBtn}
-            onClick={handlePurchased}
-          >
-            {item.is_purchased ? 'Desmarcar' : 'Comprado'}
-          </button>
-          {confirmDelete ? (
-            <button
-              className={styles.confirmDeleteBtn}
-              onClick={handleDelete}
-            >
-              Confirmar?
-            </button>
-          ) : (
-            <button
-              className={styles.deleteBtn}
-              onClick={() => setConfirmDelete(true)}
-              aria-label="Remover item"
-            >
-              ✕
-            </button>
-          )}
-        </div>
+      {editing && categories && (
+        <EditItemForm
+          item={item}
+          categories={categories}
+          onClose={() => setEditing(false)}
+          onSave={() => onUpdate?.()}
+        />
       )}
-      {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
-    </div>
+    </>
   )
 }

@@ -1,15 +1,16 @@
-import { Item } from '@/types'
+import { Item, Category } from '@/types'
 import ItemCard from './ItemCard'
 import styles from './ItemList.module.css'
 
 interface ItemListProps {
   items: Item[]
   editable: boolean
+  categories?: Category[]
   onAdd?: () => void
   onUpdate?: () => void
 }
 
-export default function ItemList({ items, editable, onAdd, onUpdate }: ItemListProps) {
+export default function ItemList({ items, editable, categories, onAdd, onUpdate }: ItemListProps) {
   const active = items.filter(i => !i.is_purchased)
   const purchased = items.filter(i => i.is_purchased)
 
@@ -29,7 +30,7 @@ export default function ItemList({ items, editable, onAdd, onUpdate }: ItemListP
   return (
     <div className={styles.list}>
       {active.map(item => (
-        <ItemCard key={item.id} item={item} editable={editable} onUpdate={onUpdate} />
+        <ItemCard key={item.id} item={item} editable={editable} categories={categories} onUpdate={onUpdate} />
       ))}
       {editable && onAdd && (
         <button className={styles.addBtn} onClick={onAdd}>
@@ -40,7 +41,7 @@ export default function ItemList({ items, editable, onAdd, onUpdate }: ItemListP
         <>
           <p className={styles.sectionTitle}>Comprados</p>
           {purchased.map(item => (
-            <ItemCard key={item.id} item={item} editable={editable} onUpdate={onUpdate} />
+            <ItemCard key={item.id} item={item} editable={editable} categories={categories} onUpdate={onUpdate} />
           ))}
         </>
       )}

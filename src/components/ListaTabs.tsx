@@ -151,7 +151,7 @@ export default function ListaTabs({ partnerName }: ListaTabsProps) {
               onChange={setMyFilter}
             />
             <div style={{ marginTop: '12px' }}>
-              <ItemList items={myFiltered} editable={true} onAdd={() => setShowForm(true)} onUpdate={loadMyData} />
+              <ItemList items={myFiltered} editable={true} categories={myCategories} onAdd={() => setShowForm(true)} onUpdate={loadMyData} />
             </div>
           </>
         ) : (
