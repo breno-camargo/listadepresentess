@@ -12,8 +12,8 @@
 }
 
 .favorite {
-  border: 2px solid var(--color-primary);
-  background: var(--color-primary-soft);
+  border: 2px solid var(--color-accent);
+  box-shadow: var(--color-card-shadow), 0 0 0 1px var(--color-accent);
 }
 
 .purchased {
