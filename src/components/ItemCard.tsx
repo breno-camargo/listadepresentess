@@ -52,34 +52,47 @@ export default function ItemCard({ item, editable, categories, onUpdate }: ItemC
   return (
     <>
       <div className={cardClass}>
-        <div className={styles.content}>
-          <div className={styles.header}>
-            {item.url ? (
-              <a href={item.url} target="_blank" rel="noopener noreferrer" className={styles.name}>
-                {item.name}
-              </a>
-            ) : (
-              <span className={styles.name}>{item.name}</span>
-            )}
-            {editable && (
-              <button
-                className={styles.favoriteBtn}
-                onClick={handleFavorite}
-                aria-label={item.is_favorite ? 'Remover favorito' : 'Favoritar'}
-              >
-                {item.is_favorite ? '♥' : '♡'}
-              </button>
-            )}
-            {!editable && item.is_favorite && (
-              <span className={styles.favoriteIcon}>♥</span>
+        <div className={styles.row}>
+          {editable && (
+            <button
+              className={`${styles.checkbox} ${item.is_purchased ? styles.checked : ''}`}
+              onClick={handlePurchased}
+              aria-label={item.is_purchased ? 'Desmarcar comprado' : 'Marcar como comprado'}
+            >
+              {item.is_purchased && <span className={styles.checkmark}>✓</span>}
+            </button>
+          )}
+          {!editable && (
+            <div className={`${styles.checkbox} ${item.is_purchased ? styles.checked : ''} ${styles.checkboxReadonly}`}>
+              {item.is_purchased && <span className={styles.checkmark}>✓</span>}
+            </div>
+          )}
+          <div className={styles.content}>
+            <div className={styles.header}>
+              {item.url ? (
+                <a href={item.url} target="_blank" rel="noopener noreferrer" className={styles.name}>
+                  {item.name}
+                </a>
+              ) : (
+                <span className={styles.name}>{item.name}</span>
+              )}
+              {editable && (
+                <button
+                  className={styles.favoriteBtn}
+                  onClick={handleFavorite}
+                  aria-label={item.is_favorite ? 'Remover favorito' : 'Favoritar'}
+                >
+                  {item.is_favorite ? '♥' : '♡'}
+                </button>
+              )}
+              {!editable && item.is_favorite && (
+                <span className={styles.favoriteIcon}>♥</span>
+              )}
+            </div>
+            {item.category && (
+              <span className={styles.categoryChip}>{item.category.name}</span>
             )}
           </div>
-          {item.is_purchased && (
-            <span className={styles.purchasedBadge}>✓ Comprado</span>
-          )}
-          {item.category && (
-            <span className={styles.categoryChip}>{item.category.name}</span>
-          )}
         </div>
         {editable && (
           <div className={styles.actions}>
@@ -88,12 +101,6 @@ export default function ItemCard({ item, editable, categories, onUpdate }: ItemC
               onClick={() => setEditing(true)}
             >
               Editar
-            </button>
-            <button
-              className={styles.purchasedBtn}
-              onClick={handlePurchased}
-            >
-              {item.is_purchased ? 'Desmarcar' : 'Comprado'}
             </button>
             {confirmDelete ? (
               <button
