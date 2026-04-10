@@ -19,6 +19,7 @@ export interface Item {
   category_id: string | null
   name: string
   url: string | null
+  price: number | null
   is_favorite: boolean
   is_purchased: boolean
   created_at: string

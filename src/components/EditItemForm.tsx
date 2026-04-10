@@ -33,6 +33,8 @@ export default function EditItemForm({ item, categories, onClose, onSave }: Edit
     const formData = new FormData(e.currentTarget)
     const name = (formData.get('name') as string)?.trim()
     const url = (formData.get('url') as string)?.trim() || null
+    const priceStr = (formData.get('price') as string)?.trim()
+    const price = priceStr ? parseFloat(priceStr.replace(',', '.')) : null
     const categoryId = (formData.get('categoryId') as string) || null
 
     if (!name || name.length > 200) {
@@ -46,6 +48,7 @@ export default function EditItemForm({ item, categories, onClose, onSave }: Edit
       .update({
         name,
         url,
+        price,
         category_id: categoryId || null,
       })
       .eq('id', item.id)
@@ -87,6 +90,18 @@ export default function EditItemForm({ item, categories, onClose, onSave }: Edit
             type="url"
             defaultValue={item.url || ''}
             placeholder="https://..."
+            className={styles.input}
+          />
+        </label>
+
+        <label className={styles.label}>
+          Preço (opcional)
+          <input
+            name="price"
+            type="text"
+            inputMode="decimal"
+            defaultValue={item.price ? String(item.price).replace('.', ',') : ''}
+            placeholder="R$ 0,00"
             className={styles.input}
           />
         </label>

@@ -122,6 +122,19 @@ a.name:hover {
   transform: scale(1.2);
 }
 
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.price {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--color-success);
+}
+
 .categoryChip {
   display: inline-block;
   background: var(--color-secondary);

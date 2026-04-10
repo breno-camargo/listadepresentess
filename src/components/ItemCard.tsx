@@ -89,9 +89,16 @@ export default function ItemCard({ item, editable, categories, onUpdate }: ItemC
                 <span className={styles.favoriteIcon}>♥</span>
               )}
             </div>
-            {item.category && (
-              <span className={styles.categoryChip}>{item.category.name}</span>
-            )}
+            <div className={styles.meta}>
+              {item.price && (
+                <span className={styles.price}>
+                  R$ {Number(item.price).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+                </span>
+              )}
+              {item.category && (
+                <span className={styles.categoryChip}>{item.category.name}</span>
+              )}
+            </div>
           </div>
         </div>
         {editable && (

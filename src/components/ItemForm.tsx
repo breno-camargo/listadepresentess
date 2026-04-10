@@ -32,6 +32,8 @@ export default function ItemForm({ categories, onClose, onManageCategories }: It
     const formData = new FormData(e.currentTarget)
     const name = (formData.get('name') as string)?.trim()
     const url = (formData.get('url') as string)?.trim() || null
+    const priceStr = (formData.get('price') as string)?.trim()
+    const price = priceStr ? parseFloat(priceStr.replace(',', '.')) : null
     const categoryId = (formData.get('categoryId') as string) || null
 
     if (!name || name.length > 200) {
@@ -47,6 +49,7 @@ export default function ItemForm({ categories, onClose, onManageCategories }: It
       user_id: user.id,
       name,
       url,
+      price,
       category_id: categoryId || null,
       is_favorite: false,
       is_purchased: false,
@@ -87,6 +90,17 @@ export default function ItemForm({ categories, onClose, onManageCategories }: It
             name="url"
             type="url"
             placeholder="https://..."
+            className={styles.input}
+          />
+        </label>
+
+        <label className={styles.label}>
+          Preço (opcional)
+          <input
+            name="price"
+            type="text"
+            inputMode="decimal"
+            placeholder="R$ 0,00"
             className={styles.input}
           />
         </label>
