@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase-browser'
 import { Item, Category } from '@/types'
 import TabNav from './TabNav'
@@ -34,61 +34,76 @@ export default function ListaTabs({ partnerName }: ListaTabsProps) {
   const [noPartner, setNoPartner] = useState(false)
 
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [animating, setAnimating] = useState(false)
   const supabase = createClient()
 
   async function loadMyData() {
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) return
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) return
 
-    const [itemsRes, catsRes] = await Promise.all([
-      supabase
-        .from('items')
-        .select('*, category:categories(*)')
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false }),
-      supabase
-        .from('categories')
-        .select('*')
-        .eq('user_id', user.id)
-        .order('name'),
-    ])
+      const [itemsRes, catsRes] = await Promise.all([
+        supabase
+          .from('items')
+          .select('*, category:categories(*)')
+          .eq('user_id', user.id)
+          .order('created_at', { ascending: false }),
+        supabase
+          .from('categories')
+          .select('*')
+          .eq('user_id', user.id)
+          .order('name'),
+      ])
 
-    if (itemsRes.data) setMyItems(itemsRes.data)
-    if (catsRes.data) setMyCategories(catsRes.data)
+      if (itemsRes.error) throw itemsRes.error
+      if (catsRes.error) throw catsRes.error
+
+      setMyItems(itemsRes.data ?? [])
+      setMyCategories(catsRes.data ?? [])
+    } catch {
+      setError('Erro ao carregar sua lista')
+    }
   }
 
   async function loadPartnerData() {
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) return
+    try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) return
 
-    const { data: profiles } = await supabase
-      .from('profiles')
-      .select('id')
-      .neq('id', user.id)
-      .limit(1)
+      const { data: profiles } = await supabase
+        .from('profiles')
+        .select('id')
+        .neq('id', user.id)
+        .limit(1)
 
-    const partnerId = profiles?.[0]?.id
-    if (!partnerId) {
-      setNoPartner(true)
-      return
+      const partnerId = profiles?.[0]?.id
+      if (!partnerId) {
+        setNoPartner(true)
+        return
+      }
+
+      const [itemsRes, catsRes] = await Promise.all([
+        supabase
+          .from('items')
+          .select('*, category:categories(*)')
+          .eq('user_id', partnerId)
+          .order('created_at', { ascending: false }),
+        supabase
+          .from('categories')
+          .select('*')
+          .eq('user_id', partnerId)
+          .order('name'),
+      ])
+
+      if (itemsRes.error) throw itemsRes.error
+      if (catsRes.error) throw catsRes.error
+
+      setPartnerItems(itemsRes.data ?? [])
+      setPartnerCategories(catsRes.data ?? [])
+    } catch {
+      setError('Erro ao carregar lista do parceiro')
     }
-
-    const [itemsRes, catsRes] = await Promise.all([
-      supabase
-        .from('items')
-        .select('*, category:categories(*)')
-        .eq('user_id', partnerId)
-        .order('created_at', { ascending: false }),
-      supabase
-        .from('categories')
-        .select('*')
-        .eq('user_id', partnerId)
-        .order('name'),
-    ])
-
-    if (itemsRes.data) setPartnerItems(itemsRes.data)
-    if (catsRes.data) setPartnerCategories(catsRes.data)
   }
 
   async function loadAll() {
@@ -115,6 +130,18 @@ export default function ListaTabs({ partnerName }: ListaTabsProps) {
   }
 
   if (loading) return <Spinner />
+
+  if (error) {
+    return (
+      <div className={styles.error}>
+        <p>😕</p>
+        <p>{error}</p>
+        <button className={styles.retryBtn} onClick={() => { setError(null); setLoading(true); loadAll() }}>
+          Tentar de novo
+        </button>
+      </div>
+    )
+  }
 
   // filtros minha lista
   const myFiltered = myFilter
