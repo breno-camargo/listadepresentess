@@ -103,12 +103,20 @@ export default function ItemCard({ item, editable, categories, onUpdate }: ItemC
               Editar
             </button>
             {confirmDelete ? (
-              <button
-                className={styles.confirmDeleteBtn}
-                onClick={handleDelete}
-              >
-                Confirmar?
-              </button>
+              <>
+                <button
+                  className={styles.cancelDeleteBtn}
+                  onClick={() => setConfirmDelete(false)}
+                >
+                  Cancelar
+                </button>
+                <button
+                  className={styles.confirmDeleteBtn}
+                  onClick={handleDelete}
+                >
+                  Deletar
+                </button>
+              </>
             ) : (
               <button
                 className={styles.deleteBtn}

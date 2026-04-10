@@ -180,6 +180,22 @@ a.name:hover {
   border-color: var(--color-danger);
 }
 
+.cancelDeleteBtn {
+  padding: 8px 16px;
+  background: none;
+  color: var(--color-text-light);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-button);
+  font-size: 0.85rem;
+  font-weight: 700;
+  min-height: var(--touch-target);
+  transition: all var(--transition-fast);
+}
+
+.cancelDeleteBtn:active {
+  transform: scale(0.96);
+}
+
 .confirmDeleteBtn {
   padding: 8px 16px;
   background: var(--color-danger);
