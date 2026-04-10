@@ -1,5 +1,6 @@
 .button {
-  padding: 6px 14px;
+  padding: 8px 14px;
+  min-height: 36px;
   background: none;
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-button);

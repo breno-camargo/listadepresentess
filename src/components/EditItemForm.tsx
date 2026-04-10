@@ -35,8 +35,8 @@ export default function EditItemForm({ item, categories, onClose, onSave }: Edit
     const url = (formData.get('url') as string)?.trim() || null
     const categoryId = (formData.get('categoryId') as string) || null
 
-    if (!name) {
-      setToast({ message: 'Nome e obrigatorio', type: 'error' })
+    if (!name || name.length > 200) {
+      setToast({ message: !name ? 'Nome é obrigatório' : 'Nome muito longo', type: 'error' })
       setPending(false)
       return
     }
