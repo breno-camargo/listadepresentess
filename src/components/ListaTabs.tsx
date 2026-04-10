@@ -191,24 +191,23 @@ export default function ListaTabs({ partnerName }: ListaTabsProps) {
         )}
       </div>
 
-      {showForm && (
-        <ItemForm
-          categories={myCategories}
-          onClose={() => setShowForm(false)}
-          onManageCategories={() => {
-            setShowForm(false)
-            setShowCategories(true)
-          }}
-        />
+      {(showForm || showCategories) && (
+        <div style={{ display: showForm && !showCategories ? undefined : 'none' }}>
+          <ItemForm
+            categories={myCategories}
+            onClose={() => setShowForm(false)}
+            onManageCategories={() => setShowCategories(true)}
+          />
+        </div>
       )}
       {showCategories && (
         <CategoryManager
           categories={myCategories}
-          onClose={() => setShowCategories(false)}
-          onBack={() => {
+          onClose={() => {
             setShowCategories(false)
-            setShowForm(true)
+            setShowForm(false)
           }}
+          onBack={() => setShowCategories(false)}
         />
       )}
     </>
