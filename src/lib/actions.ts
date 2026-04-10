@@ -8,11 +8,12 @@ export async function addCategory(name: string) {
   const user = await requireAuth()
   const supabase = await createClient()
 
-  if (!name?.trim()) return { error: 'Nome e obrigatorio' }
+  const trimmed = name?.trim()
+  if (!trimmed || trimmed.length > 50) return { error: 'Nome inválido' }
 
   const { error } = await supabase.from('categories').insert({
     user_id: user.id,
-    name: name.trim(),
+    name: trimmed,
   })
 
   if (error) return { error: error.message }
@@ -21,10 +22,14 @@ export async function addCategory(name: string) {
 }
 
 export async function deleteCategory(id: string) {
-  await requireAuth()
+  const user = await requireAuth()
   const supabase = await createClient()
 
-  const { error } = await supabase.from('categories').delete().eq('id', id)
+  const { error } = await supabase
+    .from('categories')
+    .delete()
+    .eq('id', id)
+    .eq('user_id', user.id)
 
   if (error) return { error: error.message }
   revalidatePath('/lista')
