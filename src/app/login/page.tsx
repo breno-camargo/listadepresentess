@@ -12,11 +12,9 @@ export default function LoginPage({
         <span className={styles.emoji}>🎁</span>
         <h1 className={styles.title}>Lista de Presentes</h1>
         <p className={styles.subtitle}>Wishlist de casal</p>
-        {searchParams.error && (
+        {searchParams.error === 'nao-autorizado' && (
           <p className={styles.error}>
-            {searchParams.error === 'nao-autorizado'
-              ? 'Esse email nao tem acesso. Use o email autorizado.'
-              : `Erro: ${searchParams.error}`}
+            Esse email nao tem acesso. Use o email autorizado.
           </p>
         )}
         <LoginButton />
