@@ -107,9 +107,9 @@ export default function ItemCard({ item, editable, categories, onUpdate }: ItemC
             </div>
           </div>
         </div>
-        {(editable || item.url) && (
+        {(editable || (!editable && item.url)) && (
           <div className={styles.actions}>
-            {item.url && (
+            {!editable && item.url && (
               <button
                 className={styles.copyBtn}
                 onClick={async () => {
