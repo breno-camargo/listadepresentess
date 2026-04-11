@@ -70,11 +70,16 @@ export default function ItemCard({ item, editable, categories, onUpdate }: ItemC
           <div className={styles.content}>
             <div className={styles.header}>
               {item.url ? (
-                <a href={item.url} target="_blank" rel="noopener noreferrer" className={styles.name}>
-                  {item.name}
+                <a href={item.url} target="_blank" rel="noopener noreferrer" className={styles.nameWrap}>
+                  <span className={styles.name}>{item.name}</span>
+                  <span className={styles.domain}>
+                    {(() => { try { return new URL(item.url).hostname.replace('www.', '') } catch { return '' } })()}
+                  </span>
                 </a>
               ) : (
-                <span className={styles.name}>{item.name}</span>
+                <div className={styles.nameWrap}>
+                  <span className={styles.name}>{item.name}</span>
+                </div>
               )}
               {editable && (
                 <button
