@@ -36,6 +36,7 @@ export default function ListaTabs({ partnerName }: ListaTabsProps) {
   const [noPartner, setNoPartner] = useState(false)
 
   const [loading, setLoading] = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [animating, setAnimating] = useState(false)
   const supabase = createClient()
@@ -115,11 +116,23 @@ export default function ListaTabs({ partnerName }: ListaTabsProps) {
 
   useEffect(() => {
     loadAll()
+    // atualiza a cada 30 segundos
+    const interval = setInterval(() => {
+      loadMyData()
+      loadPartnerData()
+    }, 30000)
+    return () => clearInterval(interval)
   }, [])
 
   useEffect(() => {
     if (!showForm && !showCategories) loadMyData()
   }, [showForm, showCategories])
+
+  async function handleRefresh() {
+    setRefreshing(true)
+    await Promise.all([loadMyData(), loadPartnerData()])
+    setRefreshing(false)
+  }
 
   function handleTabChange(tab: 'minha' | 'parceiro') {
     if (tab === activeTab) return
@@ -169,7 +182,16 @@ export default function ListaTabs({ partnerName }: ListaTabsProps) {
 
   return (
     <>
-      <TabNav partnerName={partnerName} activeTab={activeTab} onTabChange={handleTabChange} />
+      <div className={styles.tabRow}>
+        <TabNav partnerName={partnerName} activeTab={activeTab} onTabChange={handleTabChange} />
+        <button
+          className={`${styles.refreshBtn} ${refreshing ? styles.spinning : ''}`}
+          onClick={handleRefresh}
+          aria-label="Atualizar"
+        >
+          ↻
+        </button>
+      </div>
 
       <div className={`${styles.tabContent} ${slideClass}`}>
         {activeTab === 'minha' ? (

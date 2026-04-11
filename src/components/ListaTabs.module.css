@@ -1,3 +1,41 @@
+.tabRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tabRow nav {
+  flex: 1;
+}
+
+.refreshBtn {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border-light);
+  background: var(--color-white);
+  color: var(--color-text-light);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.refreshBtn:active {
+  transform: scale(0.9);
+}
+
+.spinning {
+  animation: spin 0.6s linear infinite;
+  color: var(--color-primary);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 .tabContent {
   margin-top: 16px;
   min-height: 200px;
