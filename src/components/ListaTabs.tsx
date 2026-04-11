@@ -9,6 +9,7 @@ import CategoryFilter from './CategoryFilter'
 import ItemForm from './ItemForm'
 import CategoryManager from './CategoryManager'
 import Spinner from './Spinner'
+import PriceTotal from './PriceTotal'
 import styles from './ListaTabs.module.css'
 
 interface ListaTabsProps {
@@ -172,6 +173,7 @@ export default function ListaTabs({ partnerName }: ListaTabsProps) {
       <div className={`${styles.tabContent} ${slideClass}`}>
         {activeTab === 'minha' ? (
           <>
+            <PriceTotal items={myItems} />
             <CategoryFilter
               categories={myUsedCats}
               selected={myFilter}
@@ -191,6 +193,7 @@ export default function ListaTabs({ partnerName }: ListaTabsProps) {
               </div>
             ) : (
               <>
+                <PriceTotal items={partnerItems} />
                 <CategoryFilter
                   categories={partnerUsedCats}
                   selected={partnerFilter}
