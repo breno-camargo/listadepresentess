@@ -89,7 +89,7 @@ export default function ItemForm({ categories, onClose, onManageCategories }: It
           <input
             name="url"
             type="url"
-            placeholder="https://..."
+            placeholder="https://www.exemplo.com"
             className={styles.input}
           />
         </label>

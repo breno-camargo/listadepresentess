@@ -1,5 +1,6 @@
 'use client'
 
+// TODO: ver se da pra usar suspense aqui depois
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase-browser'
 import { Item, Category } from '@/types'
