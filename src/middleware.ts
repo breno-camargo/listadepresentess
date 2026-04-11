@@ -44,5 +44,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/lista/:path*', '/login'],
+  matcher: ['/lista/:path*', '/login', '/auth/callback'],
 }

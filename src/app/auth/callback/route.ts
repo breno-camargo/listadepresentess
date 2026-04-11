@@ -35,7 +35,7 @@ export async function GET(request: NextRequest) {
     const { error: sessionError } = await supabase.auth.exchangeCodeForSession(code)
 
     if (sessionError) {
-      return NextResponse.redirect(`${origin}/login?error=session`)
+      return NextResponse.redirect(`${origin}/login?error=${encodeURIComponent(sessionError.message)}`)
     }
 
     return response
