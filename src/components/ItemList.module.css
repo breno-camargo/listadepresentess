@@ -44,6 +44,14 @@
   transform: scale(0.98);
 }
 
+.counter {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text-light);
+  text-align: center;
+  padding: 0 4px;
+}
+
 .sectionTitle {
   font-size: 0.75rem;
   font-weight: 800;
