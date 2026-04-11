@@ -18,6 +18,7 @@ export default function ItemCard({ item, editable, categories, onUpdate }: ItemC
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [editing, setEditing] = useState(false)
+  const [copied, setCopied] = useState(false)
   const supabase = createClient()
   const cardClass = `${styles.card} ${item.is_favorite ? styles.favorite : ''} ${item.is_purchased ? styles.purchased : ''}`
 
@@ -106,37 +107,53 @@ export default function ItemCard({ item, editable, categories, onUpdate }: ItemC
             </div>
           </div>
         </div>
-        {editable && (
+        {(editable || item.url) && (
           <div className={styles.actions}>
-            <button
-              className={styles.editBtn}
-              onClick={() => setEditing(true)}
-            >
-              Editar
-            </button>
-            {confirmDelete ? (
+            {item.url && (
+              <button
+                className={styles.copyBtn}
+                onClick={async () => {
+                  await navigator.clipboard.writeText(item.url!)
+                  setCopied(true)
+                  setTimeout(() => setCopied(false), 1500)
+                }}
+              >
+                {copied ? '✓ Copiado' : 'Copiar link'}
+              </button>
+            )}
+            {editable && (
               <>
                 <button
-                  className={styles.cancelDeleteBtn}
-                  onClick={() => setConfirmDelete(false)}
+                  className={styles.editBtn}
+                  onClick={() => setEditing(true)}
                 >
-                  Cancelar
+                  Editar
                 </button>
-                <button
-                  className={styles.confirmDeleteBtn}
-                  onClick={handleDelete}
-                >
-                  Deletar
-                </button>
+                {confirmDelete ? (
+                  <>
+                    <button
+                      className={styles.cancelDeleteBtn}
+                      onClick={() => setConfirmDelete(false)}
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      className={styles.confirmDeleteBtn}
+                      onClick={handleDelete}
+                    >
+                      Deletar
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    className={styles.deleteBtn}
+                    onClick={() => setConfirmDelete(true)}
+                    aria-label="Remover item"
+                  >
+                    ✕
+                  </button>
+                )}
               </>
-            ) : (
-              <button
-                className={styles.deleteBtn}
-                onClick={() => setConfirmDelete(true)}
-                aria-label="Remover item"
-              >
-                ✕
-              </button>
             )}
           </div>
         )}
