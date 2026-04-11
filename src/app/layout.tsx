@@ -4,6 +4,11 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Lista de Presentes',
   description: 'Wishlist de casal',
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/icon-192.png',
+  },
+  manifest: '/manifest.json',
 }
 
 export default function RootLayout({
