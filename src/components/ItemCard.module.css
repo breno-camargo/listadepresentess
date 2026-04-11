@@ -54,6 +54,7 @@
 .checked {
   background: var(--color-success);
   border-color: var(--color-success);
+  animation: pop 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .checkmark {
@@ -61,6 +62,24 @@
   font-size: 0.75rem;
   font-weight: 800;
   line-height: 1;
+  animation: checkIn 0.25s ease-out;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
+@keyframes checkIn {
+  from {
+    opacity: 0;
+    transform: scale(0) rotate(-45deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
 }
 
 .checkboxReadonly {
