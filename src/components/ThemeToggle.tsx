@@ -27,8 +27,10 @@ export default function ThemeToggle() {
   }
 
   return (
-    <button className={styles.toggle} onClick={toggle} aria-label="Alternar tema">
-      {dark ? '☀️' : '🌙'}
+    <button className={styles.switch} onClick={toggle} aria-label="Alternar tema">
+      <span className={styles.label}>☀️</span>
+      <span className={styles.label}>🌙</span>
+      <span className={`${styles.thumb} ${dark ? styles.thumbDark : ''}`} />
     </button>
   )
 }

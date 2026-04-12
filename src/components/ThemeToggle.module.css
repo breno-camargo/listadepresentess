@@ -1,21 +1,39 @@
-.toggle {
-  background: var(--color-white);
-  border: 1px solid var(--color-border-light);
-  border-radius: 50%;
-  width: 42px;
-  height: 42px;
+.switch {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1.15rem;
-  transition: transform var(--transition-fast), box-shadow var(--transition-smooth);
-  box-shadow: var(--color-card-shadow);
+  width: 56px;
+  height: 30px;
+  border-radius: 15px;
+  border: none;
+  background: var(--color-border-light);
+  padding: 0 4px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--transition-smooth);
 }
 
-.toggle:hover {
-  box-shadow: var(--color-card-shadow-hover);
+.label {
+  flex: 1;
+  font-size: 0.7rem;
+  text-align: center;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
 }
 
-.toggle:active {
-  transform: scale(0.88) rotate(20deg);
+.thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.thumbDark {
+  transform: translateX(26px);
 }
