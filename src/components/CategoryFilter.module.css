@@ -2,7 +2,7 @@
   display: flex;
   gap: 8px;
   overflow-x: auto;
-  padding: 4px 0;
+  padding: 6px 2px;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
 }
@@ -13,37 +13,67 @@
 
 .chip {
   flex-shrink: 0;
-  padding: 8px 18px;
+  padding: 9px 18px;
   border-radius: var(--radius-chip);
-  border: 2px solid var(--color-border-light);
+  border: none;
   background: var(--color-white);
   color: var(--color-text-light);
   font-size: 0.82rem;
   font-weight: 700;
-  min-height: var(--touch-target);
+  min-height: 38px;
   transition: all var(--transition-smooth);
   letter-spacing: 0.01em;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.chip::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-chip);
+  opacity: 0;
+  background: var(--gradient-primary);
+  transition: opacity var(--transition-smooth);
+  z-index: 0;
+}
+
+.chip span {
+  position: relative;
+  z-index: 1;
 }
 
 .chip:active {
-  transform: scale(0.96);
+  transform: scale(0.94);
 }
 
 .active {
-  background: var(--gradient-primary);
-  border-color: transparent;
   color: white;
-  box-shadow: 0 2px 8px rgba(232, 89, 154, 0.25);
+  box-shadow: 0 3px 12px rgba(232, 89, 154, 0.3);
+}
+
+.active::after {
+  opacity: 1;
 }
 
 .special {
-  border-color: var(--color-accent);
+  background: transparent;
+  border: 1.5px dashed var(--color-accent);
   color: var(--color-accent);
+  box-shadow: none;
+}
+
+.special::after {
+  background: var(--color-accent);
 }
 
 .activeSpecial {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
   color: white;
-  box-shadow: 0 2px 8px rgba(217, 70, 168, 0.3);
+  border-color: transparent;
+  box-shadow: 0 3px 12px rgba(217, 70, 168, 0.3);
+}
+
+.activeSpecial::after {
+  opacity: 1;
 }

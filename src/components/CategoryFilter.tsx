@@ -28,7 +28,7 @@ export default function CategoryFilter({ categories, selected, onChange, extraFi
         className={`${styles.chip} ${selected === null && noExtraActive ? styles.active : ''}`}
         onClick={() => onChange(null)}
       >
-        Todos
+        <span>Todos</span>
       </button>
       {extraFilters?.map(filter => (
         <button
@@ -36,7 +36,7 @@ export default function CategoryFilter({ categories, selected, onChange, extraFi
           className={`${styles.chip} ${styles.special} ${filter.active ? styles.activeSpecial : ''}`}
           onClick={filter.onClick}
         >
-          {filter.label}
+          <span>{filter.label}</span>
         </button>
       ))}
       {categories.map(cat => (
@@ -45,7 +45,7 @@ export default function CategoryFilter({ categories, selected, onChange, extraFi
           className={`${styles.chip} ${selected === cat.id ? styles.active : ''}`}
           onClick={() => onChange(cat.id)}
         >
-          {cat.name}
+          <span>{cat.name}</span>
         </button>
       ))}
     </div>
