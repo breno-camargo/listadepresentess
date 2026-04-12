@@ -18,7 +18,6 @@ export default function ItemCard({ item, editable, categories, onUpdate }: ItemC
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null)
   const [confirmDelete, setConfirmDelete] = useState(false)
   const [editing, setEditing] = useState(false)
-  const [copied, setCopied] = useState(false)
   const supabase = createClient()
   const cardClass = `${styles.card} ${item.is_favorite ? styles.favorite : ''} ${item.is_purchased ? styles.purchased : ''}`
 
@@ -107,23 +106,9 @@ export default function ItemCard({ item, editable, categories, onUpdate }: ItemC
             </div>
           </div>
         </div>
-        {(editable || (!editable && item.url)) && (
+        {editable && (
           <div className={styles.actions}>
-            {!editable && item.url && (
-              <button
-                className={styles.copyBtn}
-                onClick={async () => {
-                  await navigator.clipboard.writeText(item.url!)
-                  setCopied(true)
-                  setTimeout(() => setCopied(false), 1500)
-                }}
-              >
-                {copied ? '✓ Copiado' : 'Copiar link'}
-              </button>
-            )}
-            {editable && (
-              <>
-                <button
+            <button
                   className={styles.editBtn}
                   onClick={() => setEditing(true)}
                 >
@@ -153,8 +138,6 @@ export default function ItemCard({ item, editable, categories, onUpdate }: ItemC
                     ✕
                   </button>
                 )}
-              </>
-            )}
           </div>
         )}
         {toast && <Toast message={toast.message} type={toast.type} onClose={() => setToast(null)} />}
