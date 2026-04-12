@@ -1,6 +1,7 @@
 {
   "name": "listadepresentess",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Wishlist de casal com Next.js e Supabase",
   "private": true,
   "scripts": {
     "dev": "next dev",
