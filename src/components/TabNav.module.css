@@ -15,15 +15,11 @@
   border: none;
   border-bottom: 3px solid transparent;
   margin-bottom: -2px;
-  transition: all var(--transition-smooth);
+  transition: color var(--transition-smooth), border-color var(--transition-smooth);
   min-height: var(--touch-target);
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.tab:active {
-  transform: scale(0.97);
 }
 
 .active {

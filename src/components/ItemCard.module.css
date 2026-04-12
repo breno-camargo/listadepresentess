@@ -3,8 +3,8 @@
   border-radius: var(--radius-card);
   padding: 16px;
   box-shadow: var(--color-card-shadow);
-  transition: transform var(--transition-fast), box-shadow var(--transition-smooth);
   border: 1px solid var(--color-border-light);
+  transition: box-shadow var(--transition-smooth);
 }
 
 .card:hover {
@@ -13,7 +13,6 @@
 
 .favorite {
   border: 2px solid var(--color-accent);
-  box-shadow: var(--color-card-shadow), 0 0 0 1px var(--color-accent);
 }
 
 .purchased {
@@ -42,9 +41,9 @@
   align-items: center;
   justify-content: center;
   margin-top: 2px;
-  transition: all var(--transition-fast);
   padding: 0;
   cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
 }
 
 .checkbox:active {
@@ -54,7 +53,6 @@
 .checked {
   background: var(--color-success);
   border-color: var(--color-success);
-  animation: pop 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .checkmark {
@@ -62,24 +60,12 @@
   font-size: 0.75rem;
   font-weight: 800;
   line-height: 1;
-  animation: checkIn 0.25s ease-out;
-}
-
-@keyframes pop {
-  0% { transform: scale(1); }
-  40% { transform: scale(1.25); }
-  100% { transform: scale(1); }
+  animation: checkIn 0.2s var(--ease);
 }
 
 @keyframes checkIn {
-  from {
-    opacity: 0;
-    transform: scale(0) rotate(-45deg);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-  }
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .checkboxReadonly {
@@ -134,7 +120,7 @@ a.nameWrap {
 }
 
 a.nameWrap:hover {
-  opacity: 0.8;
+  opacity: 0.75;
 }
 
 .favoriteBtn,
@@ -152,7 +138,7 @@ a.nameWrap:hover {
 }
 
 .favoriteBtn:active {
-  transform: scale(1.2);
+  transform: scale(1.15);
 }
 
 .meta {
@@ -177,7 +163,6 @@ a.nameWrap:hover {
   font-size: 0.75rem;
   font-weight: 700;
   width: fit-content;
-  letter-spacing: 0.02em;
 }
 
 .actions {
@@ -189,39 +174,28 @@ a.nameWrap:hover {
   border-top: 1px solid var(--color-border-section);
 }
 
-.copyBtn {
+.copyBtn,
+.editBtn,
+.cancelDeleteBtn {
   padding: 8px 14px;
   background: none;
-  color: var(--color-text-light);
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-button);
-  font-size: 0.8rem;
+  font-size: 0.82rem;
   font-weight: 700;
   min-height: var(--touch-target);
-  transition: all var(--transition-fast);
-}
-
-.copyBtn:active {
-  transform: scale(0.96);
+  color: var(--color-text-light);
+  transition: border-color var(--transition-fast), color var(--transition-fast);
 }
 
 .editBtn {
-  padding: 8px 16px;
-  background: none;
   color: var(--color-primary);
-  border: 1px solid var(--color-primary);
-  border-radius: var(--radius-button);
-  font-size: 0.85rem;
-  font-weight: 700;
-  min-height: var(--touch-target);
-  transition: all var(--transition-fast);
+  border-color: var(--color-primary);
 }
 
-.editBtn:hover {
-  background: var(--color-primary-soft);
-}
-
-.editBtn:active {
+.copyBtn:active,
+.editBtn:active,
+.cancelDeleteBtn:active {
   transform: scale(0.96);
 }
 
@@ -242,36 +216,13 @@ a.nameWrap:hover {
   border-color: var(--color-danger);
 }
 
-.cancelDeleteBtn {
-  padding: 8px 16px;
-  background: none;
-  color: var(--color-text-light);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-button);
-  font-size: 0.85rem;
-  font-weight: 700;
-  min-height: var(--touch-target);
-  transition: all var(--transition-fast);
-}
-
-.cancelDeleteBtn:active {
-  transform: scale(0.96);
-}
-
 .confirmDeleteBtn {
   padding: 8px 16px;
   background: var(--color-danger);
   color: white;
   border: none;
   border-radius: var(--radius-button);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   min-height: var(--touch-target);
-  animation: shake 0.35s ease-out;
-}
-
-@keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-3px); }
-  75% { transform: translateX(3px); }
 }

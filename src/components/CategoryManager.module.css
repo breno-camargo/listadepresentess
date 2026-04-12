@@ -7,7 +7,7 @@
   justify-content: center;
   z-index: 30;
   padding: 16px;
-  animation: fadeIn 0.2s ease-out;
+  animation: fadeIn 0.15s var(--ease);
 }
 
 .modal {
@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  animation: scaleIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: slideUp 0.2s var(--ease);
 }
 
 .title {
@@ -42,13 +42,12 @@
   min-height: var(--touch-target);
   background: var(--color-bg);
   color: var(--color-text);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition: border-color var(--transition-fast);
 }
 
 .input:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px var(--color-primary-soft);
 }
 
 .addBtn {
@@ -59,8 +58,6 @@
   border: none;
   border-radius: var(--radius-button);
   font-size: 1.4rem;
-  transition: transform var(--transition-fast);
-  box-shadow: 0 2px 8px rgba(232, 89, 154, 0.3);
 }
 
 .addBtn:active {
@@ -69,7 +66,6 @@
 
 .addBtn:disabled {
   opacity: 0.6;
-  box-shadow: none;
 }
 
 .list {
@@ -147,8 +143,6 @@
   border-radius: var(--radius-button);
   font-weight: 700;
   min-height: var(--touch-target);
-  transition: transform var(--transition-fast);
-  box-shadow: 0 2px 8px rgba(232, 89, 154, 0.3);
 }
 
 .backBtn:active {
@@ -164,7 +158,6 @@
   font-weight: 700;
   color: var(--color-text);
   min-height: var(--touch-target);
-  transition: all var(--transition-fast);
 }
 
 .closeBtn:active {
@@ -176,7 +169,7 @@
   to { opacity: 1; }
 }
 
-@keyframes scaleIn {
-  from { transform: scale(0.95); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
 }
